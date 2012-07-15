@@ -1,0 +1,2 @@
+django==1.4
+django-tinymce==1.5.1a1
