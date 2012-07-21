@@ -1,0 +1,19 @@
+{% extends "base.html" %}
+{% load url from future %}
+{% block title %}Books{% endblock %}
+{% block home %}
+    <table border="0" cellspacing="1" cellpadding="0" width="100%">
+        <tr><td>Name Author: {{ select_author.FIO }} </td></tr>
+        <tr><td>Date born: {{ select_author.birthday }}</td></tr>
+        {% if select_author.dieday %}<tr><td>Date death: {{ select_author.dieday }}</td></tr> {%endif%}
+        <tr><td>
+            <p>List of write books: </p>
+            <ul>
+        {% for book in books_author %}
+            <li>{{ book.title }}</li>
+        {% endfor %}
+            </ul>
+        </td></tr>
+        <tr><td><a href="/">Homepage</a></td><td><a href="{% url 'author_edit' author_id %}">edit</a></td><td>{% if author_id %} <a href="{% url 'author_delete' author_id %}">Delete author</a> {% endif %}</td></tr>
+    </table>
+{% endblock %}

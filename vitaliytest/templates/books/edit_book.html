@@ -1,0 +1,27 @@
+{% extends "base.html" %}
+{% load i18n %}
+{% load url from future %}
+{% block tinyMCE %} {{ form.media }} {% endblock %}
+{% block title %}Books{% endblock %}
+{% block home %}
+{% if messages %}
+<ul class="messages">
+    {% for message in messages %}
+    <li{% if message.tags %} class="{{ message.tags }}"{% endif %}>{{ message }}</li>
+    {% endfor %}
+</ul>
+{% endif %}
+<form method="post" action="./" id ="edit_book">
+    {% csrf_token %}
+    {% for field in form %} 
+    <div class="form">
+        {{ field.errors }}
+        {{ field.label_tag}}
+        {{ field }}
+        {% if field.html_name == 'author' %}<a href="{% url 'author_create' %}">+Edit authors</a>{% endif %} 
+    </div>
+    {% endfor %}
+    <button type="submit" class="btn btn-primary"><b>{% trans "Continue" %}</b></button>
+</form>
+<a href="/delete_book/{{ id }}">Delete book</a>
+{% endblock %}
