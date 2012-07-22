@@ -24,7 +24,7 @@ urlpatterns = patterns('',
     url(r'^author/(\d+)/$', 'books.views.select_author', name="author_view"),
     url(r'^author_edit/(?P<author_id>\d+)/$','books.views.author_edit', name="author_edit"),
     url(r'^author_create/$','books.views.author_edit',{'author_id':None} ,name="author_create"),
-        url(r'^author_delete/(\d+)/$', 'books.views.author_delete', name="author_delete"),
+    url(r'^author_delete/(\d+)/$', 'books.views.author_delete', name="author_delete"),
     url(r'^author/$','books.views.author', name="authors_page"),
 
 
@@ -34,6 +34,7 @@ urlpatterns = patterns('',
     url(r'^create_book/$','books.views.edit_book',{'id':None}, name="create_book"),
     url(r'^delete_book/(\d+)/$', 'books.views.delete_book', name="delete_book"),
 
+    url(r'^accounts/login/$', 'django.contrib.auth.views.login', {'template_name': 'books/login.html', 'extra_context':{'hide_header':True}}),
     url(r'^$', 'books.views.index', name='home_page'),
 
 )

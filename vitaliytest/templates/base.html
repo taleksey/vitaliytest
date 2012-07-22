@@ -17,7 +17,7 @@
 
 <body>
     <div id="sidebar">
-        <ul class="nav nav-tabs">
+        {% if not hide_header %}  <ul class="nav nav-tabs">
         <li {% if class_name == 'home-page' %} class="active" {% endif %}>
             <a href="{% url 'home_page' %}">Book</a></li>
         </li>
@@ -31,6 +31,7 @@
             <a href="{% url 'author_create' %}">Author create</a>
         </li>
     </ul> 
+    {% endif %}
         {% block home %} {% endblock %}
     </div>
 
