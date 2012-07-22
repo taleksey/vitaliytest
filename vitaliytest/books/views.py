@@ -66,7 +66,7 @@ def author_edit(request,author_id):
 
     if request.method == 'POST':
         form = AuthorForm(request.POST, instance=selected_author)
-        if form.is_valid:
+        if form.is_valid():
             instance_form = form.save()
             messages.success(request,create_message)
             if author_id is None:
