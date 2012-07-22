@@ -7,19 +7,21 @@ from books.models import Author,Book, AuthorForm, BookForm
 
 def index(request):
     book_all = Book.objects.prefetch_related('author')
-    return render_to_response('books/index.html', {'books_all':book_all})
+    return render_to_response('books/index.html', {'books_all':book_all, 'class_name':'home-page'})
 
 def author(request):
     author_all = Author.objects.all()
-    return render_to_response('books/author.html',{'authors':author_all})
+    return render_to_response('books/author.html',{'authors':author_all, 'class_name':'author-home'})
 
 def select_author(request, id):
+    ref_page = request.META['HTTP_REFERER']
     selected_author = get_object_or_404(Author, pk=id)
     books_author = selected_author.book_set.all()
-    return render_to_response('books/page_author.html',{'select_author':selected_author,'books_author':books_author, 'author_id':id}, context_instance=RequestContext(request))
+    return render_to_response('books/page_author.html',{'select_author':selected_author,'books_author':books_author, 'author_id':id, 'ref_page':ref_page}, context_instance=RequestContext(request))
 
 
 def edit_book(request,id):
+    ref_page = request.META['HTTP_REFERER']
     if id is None:
         book = None
         create_message = 'Book success create!'
@@ -38,12 +40,12 @@ def edit_book(request,id):
         form =  BookForm(instance=book)
 
 
-    return render_to_response('books/edit_book.html',{'form':form,'id':id}, context_instance=RequestContext(request))
+    return render_to_response('books/edit_book.html',{'form':form,'id':id,'class_name':'edit-book','ref_page':ref_page}, context_instance=RequestContext(request))
 
 def delete_book(request,id):
     selected_author = get_object_or_404(Book, pk=id)
     selected_author.delete()
-    return redirect(reverse('home'))
+    return redirect(reverse('home_page'))
 
 def select_book(request):
     pass
@@ -71,4 +73,4 @@ def author_delete(request,id):
     selected_author = get_object_or_404(Author, pk=id)
     selected_author.delete()
     Book.objects.filter(author__pk__isnull = True).delete()
-    return redirect(reverse('home'))
+    return redirect(reverse('home_page'))

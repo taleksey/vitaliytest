@@ -1,8 +1,9 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% load url from future %}
 {% block title %}Books{% endblock %}
 {% block home %}
-    <table border="0" cellspacing="1" cellpadding="0" width="100%">
+    <table border="0" cellspacing="1" cellpadding="0" width="100%" class="table table-striped">
         <tr><td>Name Author: {{ select_author.FIO }} </td></tr>
         <tr><td>Date born: {{ select_author.birthday }}</td></tr>
         {% if select_author.dieday %}<tr><td>Date death: {{ select_author.dieday }}</td></tr> {%endif%}
@@ -14,6 +15,23 @@
         {% endfor %}
             </ul>
         </td></tr>
-        <tr><td><a href="/">Homepage</a></td><td><a href="{% url 'author_edit' author_id %}">edit</a></td><td>{% if author_id %} <a href="{% url 'author_delete' author_id %}">Delete author</a> {% endif %}</td></tr>
     </table>
+    <div class="submit-buttons">
+        <span><a href ="{% url 'author_edit' author_id %}" class="btn btn-primary"><b>{% trans "Edit" %}</b></a></span>
+        <span><a href ="{{ ref_page }}" class="btn"><b>{% trans "Cancel" %}</b></a></span>
+        <span><a href="{% url 'author_delete' author_id %}" class="btn btn-danger" id="confirm-delete">Delete author</a>
+    </div>
+    <div class="modal hide" id="myModal">
+        <div class="modal-header">
+            <button type="button" class="close" data-dismiss="modal">×</button>
+            <h3>Delete author</h3>
+        </div>
+        <div class="modal-body">
+            <p>Are you sure to delete thie author?</p>
+        </div>
+        <div class="modal-footer">
+            <a href="#" class="btn" data-dismiss="modal">Close</a>
+            <a href="{% url 'author_delete' author_id %}" class="btn btn-primary">Delete</a>
+        </div>
+    </div>
 {% endblock %}

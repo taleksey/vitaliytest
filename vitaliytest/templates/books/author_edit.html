@@ -11,7 +11,7 @@
     {% endfor %}
 </ul>
 {% endif %}
-<form method="post" action="./" id ="edit_book">
+<form method="post" action="./" id ="edit_book" class="form-horizontal">
     {% csrf_token %}
     {% for field in form %} 
     <div class="form">

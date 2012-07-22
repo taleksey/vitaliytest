@@ -25,16 +25,16 @@ urlpatterns = patterns('',
     url(r'^author_edit/(?P<author_id>\d+)/$','books.views.author_edit', name="author_edit"),
     url(r'^author_create/$','books.views.author_edit',{'author_id':None} ,name="author_create"),
         url(r'^author_delete/(\d+)/$', 'books.views.author_delete', name="author_delete"),
-    url(r'^author/$','books.views.author'),
+    url(r'^author/$','books.views.author', name="authors_page"),
 
 
 
     url(r'^book/(\d+)/$', 'books.views.select_book', name="book_view"),
     url(r'^edit_book/(\d+)/$','books.views.edit_book', name="edit_book"),
-    url(r'^create_book/$','books.views.edit_book',{'id':None}),
+    url(r'^create_book/$','books.views.edit_book',{'id':None}, name="create_book"),
     url(r'^delete_book/(\d+)/$', 'books.views.delete_book', name="delete_book"),
 
-    url(r'^$', 'books.views.index', name='home'),
+    url(r'^$', 'books.views.index', name='home_page'),
 
 )
 urlpatterns += staticfiles_urlpatterns()

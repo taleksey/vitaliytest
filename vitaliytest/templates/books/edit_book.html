@@ -11,17 +11,32 @@
     {% endfor %}
 </ul>
 {% endif %}
-<form method="post" action="./" id ="edit_book">
+<form method="post" action="./" id ="edit_book" class="form-horizontal">
     {% csrf_token %}
     {% for field in form %} 
-    <div class="form">
         {{ field.errors }}
         {{ field.label_tag}}
         {{ field }}
         {% if field.html_name == 'author' %}<a href="{% url 'author_create' %}">+Edit authors</a>{% endif %} 
-    </div>
     {% endfor %}
-    <button type="submit" class="btn btn-primary"><b>{% trans "Continue" %}</b></button>
+    <div class="submit-buttons">
+        <span><button type="submit" class="btn btn-primary"><b>{% trans "Continue" %}</button></span>
+        <span><a href ="{{ ref_page }}" class="btn"><b>{% trans "Cancel" %}</b></a></span>
+        {% if id %}<span><a href="{% url 'delete_book' id %}" class="btn btn-danger" id="confirm-delete">Delete book</a>{% endif %}
+    </div>
 </form>
-<a href="/delete_book/{{ id }}">Delete book</a>
+
+<div class="modal hide" id="myModal">
+  <div class="modal-header">
+    <button type="button" class="close" data-dismiss="modal">×</button>
+    <h3>Delete book</h3>
+  </div>
+  <div class="modal-body">
+    <p>Are you sure to delete thie book?</p>
+  </div>
+  <div class="modal-footer">
+    <a href="#" class="btn" data-dismiss="modal">Close</a>
+    {% if id %} <a href="{% url 'delete_book' id %}" class="btn btn-primary">Delete</a> {% endif %}
+  </div>
+</div>
 {% endblock %}

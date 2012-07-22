@@ -1,10 +1,10 @@
 {% extends "base.html" %}
-
+{% load url from future %}
 {% block title %}Books{% endblock %}
 {% block home %}
 {% if books_all|length > 0%}
-    <table border="0" cellspacing="1" cellpadding="0" width="100%">
-        <tr><th>Name book</th><th>Year issue</th><th>Authors</th></tr>
+    <table border="0" cellspacing="1" cellpadding="0" width="100%" class="table table-striped">
+        <tr><th>Name book</th><th>Year issue</th><th>Authors</th><th>Action</th></tr>
         {% for book in books_all %}
             <tr>
                 <td>{{ book.title }}</td>
@@ -16,10 +16,9 @@
                     
                  {% endfor %}               
                 </td>
-                <td><span><a href="/edit_book/{{ book.id }}">edit</a></span></td>
+                <td><span><a href="{% url 'edit_book' book.id %}">edit</a></span></td>
             </tr>    
         {% endfor %}
-        <tr><td colspan="2"><a href="/author/">Author</a></td><td><a href="/create_book/">Create Book</a></td></tr>
     </table>
 {% endif %}
 {% endblock %}
