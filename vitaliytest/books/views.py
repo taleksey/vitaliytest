@@ -9,7 +9,7 @@ from books.models import Author,Book, AuthorForm, BookForm
 @login_required
 def index(request):
     book_all = Book.objects.prefetch_related('author')
-    return render_to_response('books/index.html', {'books_all':book_all, 'class_name':'home-page'})
+    return render_to_response('books/index.html', {'books_all':book_all, 'class_name':'home-page'}, context_instance=RequestContext(request))
 
 @login_required
 def author(request):
