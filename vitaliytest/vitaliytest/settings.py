@@ -1,6 +1,6 @@
 import os
 # Django settings for vitaliytest project.
-from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS
+from django.conf.global_settings import TEMPLATE_CONTEXT_PROCESSORS, AUTHENTICATION_BACKENDS
 
 
 DEBUG = True
@@ -98,6 +98,7 @@ TEMPLATE_LOADERS = (
 
 TEMPLATE_CONTEXT_PROCESSORS += (
     'django.core.context_processors.request',
+    'books.context_processors.global_settings'
 )
 
 MIDDLEWARE_CLASSES = (
@@ -137,6 +138,10 @@ INSTALLED_APPS = (
      'django.contrib.admindocs',
     'books',
     'tinymce',
+)
+
+AUTHENTICATION_BACKENDS += (
+    'books.backend.EmailAuthBackend',
 )
 
 # A sample logging configuration. The only tangible logging
