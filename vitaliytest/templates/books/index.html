@@ -1,5 +1,8 @@
 {% extends "base.html" %}
 {% load url from future %}
+
+{% load books_tags %}
+
 {% block title %}Books{% endblock %}
 {% block home %}
 {% if books_all|length > 0%}
@@ -21,4 +24,5 @@
         {% endfor %}
     </table>
 {% endif %}
+<a href="{% edit_link  request.user %}">Edit user </a>
 {% endblock %}
